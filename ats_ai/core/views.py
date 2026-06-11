@@ -1,64 +1,59 @@
 from django.shortcuts import render, redirect
-from .models import Candidate
+from .models import Candidate, Job
 from .utils import extract_text
 
 
-JOB_KEYWORDS = [
-    "python",
-    "django",
-    "javascript",
-    "vue",
-    "typescript",
-    "rest api",
-    "git",
-    "sql",
-    "html",
-    "CSS3"
-]
 
-def calculate_score(text):
+def calculate_score(text, job_description):
     if not text:
         return 0
 
     text = text.lower()
+    job_description = job_description.lower()
+
+    job_keywords = job_description.split()  # MVP ساده
 
     score = 0
-    for keyword in JOB_KEYWORDS:
-        if keyword.lower() in text:
-            score += 10
+
+    for keyword in job_keywords:
+        if keyword in text:
+            score += 5
 
     return min(score, 100)
 
 
 def upload_resume(request):
+    jobs = Job.objects.all()
+
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
+        job_id = request.POST.get('job')
         file = request.FILES.get('resume')
+        job_id = request.POST.get('job')
+
+
+        job = Job.objects.get(id=job_id)
 
         candidate = Candidate.objects.create(
             name=name,
             email=email,
-            resume_file=file
+            resume_file=file,
+            job = job
         )
 
-        # استخراج متن PDF
         file_path = candidate.resume_file.path
         text = extract_text(file_path)
 
-
-        score = calculate_score(text)
+        score = calculate_score(text, job.description)
 
         candidate.resume_text = text
         candidate.score = score
         candidate.save()
-        print("========== RESUME TEXT ==========")
-        print(text[:1000])
-        print("==================================")
 
         return redirect('success')
 
-    return render(request, 'upload.html')
+    return render(request, 'upload.html', {'jobs': jobs})
 
 
 def success(request):
