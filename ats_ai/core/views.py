@@ -63,3 +63,7 @@ def upload_resume(request):
 
 def success(request):
     return render(request, 'success.html')
+
+def dashboard(request):
+    candidates = Candidate.objects.all().order_by('-score')
+    return render(request, 'dashboard.html', {'candidates': candidates})
