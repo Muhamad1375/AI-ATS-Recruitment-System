@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Candidate, Job
-from .utils import extract_text, ai_score
+from .utils import extract_text, ai_score, analyze_skills
+
 
 
 
@@ -63,20 +64,7 @@ def dashboard(request):
     candidates = Candidate.objects.all().order_by('-score')
     return render(request, 'dashboard.html', {'candidates': candidates})
 
-def analyze_skills(resume_text, job_description):
-    resume_text = resume_text.lower()
-    job_keywords = job_description.lower().split()
 
-    found = []
-    missing = []
-
-    for keyword in job_keywords:
-        if keyword in resume_text:
-            found.append(keyword)
-        else:
-            missing.append(keyword)
-
-    return found, missing
 
 def candidate_detail(request, candidate_id):
     candidate = Candidate.objects.get(id=candidate_id)
