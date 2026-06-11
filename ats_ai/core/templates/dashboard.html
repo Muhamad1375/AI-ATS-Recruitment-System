@@ -27,8 +27,11 @@ Top Candidate:
     {% for c in candidates %}
     <tr>
         <td>{{ forloop.counter }}</td>
-        <td>{{ c.name }}</td>
-        <td>{{ c.email }}</td>
+        <td>
+            <a href="{% url 'candidate_detail' c.id %}">
+                {{ c.name }}
+            </a>
+        </td>        <td>{{ c.email }}</td>
         <td>{{ c.job.title }}</td>
 
         <td

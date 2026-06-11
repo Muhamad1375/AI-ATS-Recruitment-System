@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>{{ candidate.name }}</h1>
+
+<p>Email: {{ candidate.email }}</p>
+<p>Job: {{ candidate.job.title }}</p>
+<p>Score: {{ candidate.score }}</p>
+
+<hr>
+
+<h2>✅ Skills Found</h2>
+
+<ul>
+{% for skill in found %}
+    <li>{{ skill }}</li>
+{% endfor %}
+</ul>
+
+<h2>❌ Missing Skills</h2>
+
+<ul>
+{% for skill in missing %}
+    <li>{{ skill }}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
