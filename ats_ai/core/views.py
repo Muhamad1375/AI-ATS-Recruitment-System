@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Candidate, Job
-from .utils import extract_text
+from .utils import extract_text, ai_score
 
 
 
@@ -45,7 +45,7 @@ def upload_resume(request):
         file_path = candidate.resume_file.path
         text = extract_text(file_path)
 
-        score = calculate_score(text, job.description)
+        score = ai_score(text, job.description)
 
         candidate.resume_text = text
         candidate.score = score
