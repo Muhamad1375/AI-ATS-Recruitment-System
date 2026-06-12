@@ -69,16 +69,24 @@ def dashboard(request):
 def candidate_detail(request, candidate_id):
     candidate = Candidate.objects.get(id=candidate_id)
 
-    found, missing = analyze_skills(
+    found, missing, skill_score = analyze_skills(
         candidate.resume_text,
         candidate.job.description
+    )
+
+    final_score = round(
+    (candidate.score * 0.7) +
+    (skill_score * 0.3)
     )
 
     context = {
         "candidate": candidate,
         "found": found,
-        "missing": missing
+        "missing": missing,
+        "skill_score": skill_score,
+        "final_score": final_score
     }
+
 
     return render(request, "candidate_detail.html", context)
 

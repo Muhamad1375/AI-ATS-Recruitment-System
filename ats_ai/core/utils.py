@@ -50,7 +50,14 @@ def analyze_skills(resume_text, job_description):
         else:
             missing.append(skill)
 
-    return found, missing
+    total = len(job_skills)
+
+    if total == 0:
+        skill_score = 0
+    else:
+        skill_score = round((len(found) / total) * 100)
+
+    return found, missing, skill_score
 
 def ai_score(resume_text, job_description):
     if not resume_text or not job_description:

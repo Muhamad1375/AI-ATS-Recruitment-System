@@ -6,11 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{ candidate.name }}</h1>
+<h1>{{ candidate.name }}</h1>
 
 <p>Email: {{ candidate.email }}</p>
 <p>Job: {{ candidate.job.title }}</p>
-<p>Score: {{ candidate.score }}</p>
+
+<p>AI Score: {{ candidate.score }}</p>
+<p>Skill Match: {{ skill_score }}%</p>
+<p><strong>Final Score: {{ final_score }}</strong></p>
 
 <hr>
 
