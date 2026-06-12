@@ -1,3 +1,4 @@
+
 # AI Resume Screening System (ATS)
 
 An AI-powered Applicant Tracking System built with Django that automates resume screening, scoring, and candidate ranking.
@@ -31,3 +32,5 @@ Upload Resume → Extract Text → AI Scoring → Job Matching → Talent Pool �
 
 ## 👨‍💻 Author
 Muhammad Ali
+© 2026 Muhammad Ali. All rights reserved.
+This project is shared for educational and portfolio purposes.
