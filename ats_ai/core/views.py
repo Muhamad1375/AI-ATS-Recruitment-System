@@ -81,10 +81,18 @@ def dashboard(request):
 def candidate_detail(request, candidate_id):
     candidate = Candidate.objects.get(id=candidate_id)
 
-    found, missing, skill_score = analyze_skills(
-        candidate.resume_text,
-        candidate.job.description
-    )
+    if candidate.job and candidate.job.description:
+        found, missing, skill_score = analyze_skills(
+            candidate.resume_text,
+            candidate.job.description
+        )
+    else:
+        found = []
+        missing = []
+        skill_score = 0
+
+
+
 
     final_score = round(
     (candidate.score * 0.7) +
@@ -102,3 +110,11 @@ def candidate_detail(request, candidate_id):
 
     return render(request, "candidate_detail.html", context)
 
+def talent_pool(request):
+    candidates = Candidate.objects.all().order_by('-final_score')
+
+    return render(
+        request,
+        'talent_pool.html',
+        {'candidates': candidates}
+    )

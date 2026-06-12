@@ -1,36 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Candidate Report</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: white;
+    }
+
+    .container {
+        width: 90%;
+        max-width: 900px;
+        margin: auto;
+        padding: 40px 0;
+    }
+
+    /* HEADER CARD */
+    .card {
+        background: #1e293b;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 28px;
+    }
+
+    p {
+        color: #94a3b8;
+        margin: 5px 0;
+    }
+
+    /* SCORE BOX */
+    .score-box {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+        flex-wrap: wrap;
+    }
+
+    .score {
+        background: #0f172a;
+        padding: 15px;
+        border-radius: 10px;
+        width: 30%;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    .score strong {
+        font-size: 18px;
+        color: #38bdf8;
+    }
+
+    /* SKILLS */
+    .section {
+        background: #1e293b;
+        padding: 20px;
+        border-radius: 12px;
+        margin-top: 20px;
+    }
+
+    h2 {
+        color: #38bdf8;
+        margin-bottom: 10px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    li {
+        margin: 5px 0;
+        color: #e2e8f0;
+    }
+
+    .found li {
+        color: #22c55e;
+    }
+
+    .missing li {
+        color: #ef4444;
+    }
+
+</style>
+
 </head>
+
 <body>
-<h1>{{ candidate.name }}</h1>
 
-<p>Email: {{ candidate.email }}</p>
-<p>Job: {{ candidate.job.title }}</p>
+<div class="container">
 
-<p>AI Score: {{ candidate.score }}</p>
-<p>Skill Match: {{ skill_score }}%</p>
-<p><strong>Final Score: {{ final_score }}</strong></p>
+    <!-- HEADER -->
+    <div class="card">
+        <h1>{{ candidate.name }}</h1>
 
-<hr>
+        <p>Email: {{ candidate.email }}</p>
+        <p>Job: {{ candidate.job.title }}</p>
 
-<h2>✅ Skills Found</h2>
+        <div class="score-box">
 
-<ul>
-{% for skill in found %}
-    <li>{{ skill }}</li>
-{% endfor %}
-</ul>
+            <div class="score">
+                AI Score<br>
+                <strong>{{ candidate.score }}</strong>
+            </div>
 
-<h2>❌ Missing Skills</h2>
+            <div class="score">
+                Skill Match<br>
+                <strong>{{ skill_score }}%</strong>
+            </div>
 
-<ul>
-{% for skill in missing %}
-    <li>{{ skill }}</li>
-{% endfor %}
-</ul>
+            <div class="score">
+                Final Score<br>
+                <strong>{{ final_score }}</strong>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SKILLS FOUND -->
+    <div class="section">
+        <h2>✅ Skills Found</h2>
+        <ul class="found">
+            {% for skill in found %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <!-- SKILLS MISSING -->
+    <div class="section">
+        <h2>❌ Missing Skills</h2>
+        <ul class="missing">
+            {% for skill in missing %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+</div>
+
 </body>
 </html>
