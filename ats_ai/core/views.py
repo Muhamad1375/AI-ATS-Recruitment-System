@@ -47,9 +47,21 @@ def upload_resume(request):
         text = extract_text(file_path)
 
         score = ai_score(text, job.description)
+        found, missing, skill_score = analyze_skills(
+            text,
+            job.description
+        )
+
+        final_score = round(
+            (score * 0.7) +
+            (skill_score * 0.3)
+        )
+
 
         candidate.resume_text = text
         candidate.score = score
+        candidate.final_score = final_score
+        candidate.resume_text = text
         candidate.save()
 
         return redirect('success')
@@ -61,7 +73,7 @@ def success(request):
     return render(request, 'success.html')
 
 def dashboard(request):
-    candidates = Candidate.objects.all().order_by('-score')
+    candidates = Candidate.objects.all().order_by('-final_score')
     return render(request, 'dashboard.html', {'candidates': candidates})
 
 

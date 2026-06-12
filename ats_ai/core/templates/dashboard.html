@@ -21,6 +21,7 @@ Top Candidate:
         <th>Email</th>
         <th>Score</th>
         <th>Job</th>
+        <th>Final Score</th>
 
     </tr>
 
@@ -45,6 +46,7 @@ Top Candidate:
         >
             {{ c.score }}
         </td>
+        <td>{{ c.final_score }}</td>
     </tr>
     {% endfor %}
 </table>

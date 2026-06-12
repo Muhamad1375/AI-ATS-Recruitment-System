@@ -22,7 +22,10 @@ class Candidate(models.Model):
     resume_file = models.FileField(upload_to='resumes/')
     resume_text = models.TextField(blank=True, null=True)
 
-    score = models.IntegerField(default=0)  # نمره AI
+    score = models.IntegerField(default=0) 
+     # نمره AI
+    final_score = models.IntegerField(default=0)
+
 
     created_at = models.DateTimeField(auto_now_add=True)
 
